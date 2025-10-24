@@ -8,8 +8,10 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
-  GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
-  GKE_ZONE_OR_REGION: ${{ secrets.GKE_ZONE_OR_REGION }}
+  #GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
+  #GKE_ZONE_OR_REGION: ${{ secrets.GKE_ZONE_OR_REGION }}
+  GKE_CLUSTER: mmani-gcp-autopilot-cluster
+  GKE_ZONE_OR_REGION: us-west2
   GCR_HOSTNAME: us-west2-docker.pkg.dev
   IMAGE_NAME: hello-world-app
   DEPLOYMENT_NAME: hello-world-deployment
