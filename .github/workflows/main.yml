@@ -47,9 +47,9 @@ jobs:
       - name: Build and Push Docker image to GCR
         id: build-image
         run: |
-          echo "Image Name: $GCR_HOSTNAME/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA......"
-          docker build -t $GCR_HOSTNAME/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA .
-          docker push $GCR_HOSTNAME/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
+          echo "Image Name: $GCR_HOSTNAME/$PROJECT_ID/mmani-gcr-repo/$IMAGE_NAME:$GITHUB_SHA......"
+          docker build -t $GCR_HOSTNAME/$PROJECT_ID/mmani-gcr-repo/$IMAGE_NAME:$GITHUB_SHA .
+          docker push $GCR_HOSTNAME/$PROJECT_ID/mmani-gcr-repo/$IMAGE_NAME:$GITHUB_SHA
         
       # --- GKE Deployment ---
       - name: Get GKE credentials
