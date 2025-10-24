@@ -11,7 +11,7 @@ env:
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE_OR_REGION: ${{ secrets.GKE_ZONE_OR_REGION }}
   GCR_HOSTNAME: us-west2-docker.pkg.dev
-  IMAGE_NAME: mmani-gcr-repo
+  IMAGE_NAME: hello-world-app
   DEPLOYMENT_NAME: hello-world-deployment
 
 jobs:
@@ -35,7 +35,6 @@ jobs:
             project_id: ${{ secrets.GCP_PROJECT_ID }}
             workload_identity_provider: ${{secrets.WORKLOAD_IDENTITY_PROVIDER}}
             service_account: '540198532097-compute@developer.gserviceaccount.com'
-            #credentials_json: '${{ secrets.GCP_SA_KEY }}'
 
       - name: 'Set up GCR'
         uses: 'google-github-actions/setup-gcloud@v2'
