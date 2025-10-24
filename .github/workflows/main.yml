@@ -10,8 +10,8 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE_OR_REGION: ${{ secrets.GKE_ZONE_OR_REGION }}
-  GCR_HOSTNAME: us-west2-docker.pkg.dev/mmani-gcr-repo
-  IMAGE_NAME: hello-world
+  GCR_HOSTNAME: us-west2-docker.pkg.dev
+  IMAGE_NAME: mmani-gcr-repo
   DEPLOYMENT_NAME: hello-world-deployment
 
 jobs:
@@ -48,7 +48,7 @@ jobs:
       - name: Build and Push Docker image to GCR
         id: build-image
         run: |
-          echo "Image Name: $IMAGE_NAME......"
+          echo "Image Name: $GCR_HOSTNAME/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA......"
           docker build -t $GCR_HOSTNAME/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA .
           docker push $GCR_HOSTNAME/$PROJECT_ID/$IMAGE_NAME:$GITHUB_SHA
         
