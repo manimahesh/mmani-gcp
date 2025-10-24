@@ -10,8 +10,8 @@ env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GKE_CLUSTER: ${{ secrets.GKE_CLUSTER }}
   GKE_ZONE_OR_REGION: ${{ secrets.GKE_ZONE_OR_REGION }}
-  GCR_HOSTNAME: us-west2-docker.pkg.dev
-  IMAGE_NAME: hello-world-app
+  GCR_HOSTNAME: us-west2-docker.pkg.dev/mmani-gcr-repo
+  IMAGE_NAME: hello-world
   DEPLOYMENT_NAME: hello-world-deployment
 
 jobs:
