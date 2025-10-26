@@ -5,36 +5,43 @@ from flask import jsonify
 # The URL for the public ISS location API
 ISS_API_URL = "http://api.open-notify.org/iss-now.json"
 
+# NOTE: The entry point now expects a standard Flask request object
 def get_iss_position(request):
     """
-    HTTP Cloud Function that proxies the ISS position from the Open Notify API.
+    HTTP Cloud Function that proxies the ISS position.
+    
+    This function is the entry point, and the runtime handles starting 
+    the web server (on port 8080) and routing the request to this function.
+
     Args:
         request (flask.Request): The request object.
     Returns:
-        The JSON response from the ISS API, or an error.
+        A Flask Response object (JSON data, status code, and headers).
     """
     try:
-        # Fetch the data from the external API
+        # 1. Fetch the data from the external API
         response = requests.get(ISS_API_URL, timeout=10)
-        response.raise_for_status() # Raise an exception for bad status codes
+        # 2. Check for HTTP errors (like 4xx or 5xx)
+        response.raise_for_status() 
 
-        # Parse and return the external API's JSON response
+        # 3. Parse the JSON response
         iss_data = response.json()
         
-        # Optionally, you can add CORS headers for web usage
+        # 4. Set CORS headers and return the response
         headers = {
             'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*' # Allows all domains to call your API
+            'Access-Control-Allow-Origin': '*' 
         }
 
-        return (jsonify(iss_data), 200, headers)
+        # Return a standard Flask-compatible tuple: (body, status_code, headers)
+        return jsonify(iss_data), 200, headers
 
     except requests.exceptions.RequestException as e:
-        # Handle connection errors, timeouts, etc.
         error_message = f"Error fetching ISS data: {e}"
         print(f"ERROR: {error_message}")
-        return jsonify({"message": "error", "details": error_message}), 500
+        return jsonify({"message": "error", "details": error_message}), 503, {'Content-Type': 'application/json'}
 
     except json.JSONDecodeError:
-        # Handle cases where the external API returns non-JSON data
-        return jsonify({"message": "error", "details": "External API returned invalid JSON"}), 502
+        error_message = "External API returned invalid JSON."
+        print(f"ERROR: {error_message}")
+        return jsonify({"message": "error", "details": error_message}), 502, {'Content-Type': 'application/json'}
