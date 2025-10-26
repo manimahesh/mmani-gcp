@@ -1,4 +1,4 @@
-name: Cortex CLI Code Scan
+name: Cortex CLI Code Scan for GCP Project
 
 on:
   push:
